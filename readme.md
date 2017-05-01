@@ -1,8 +1,7 @@
 APC9212 PHP Driver
 ===================
 
-This is the Select2 widget and a Yii 2 enhanced wrapper for the [Select2 jQuery plugin](http://ivaynberg.github.io/select2). This input widget is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results. The widget is specially styled for Bootstrap 3 and offers a few enhancements not available in the source plugin. The widget allows graceful degradation to a normal HTML select or text input, if the browser does not support JQuery.
-
+This is the PHP driver for the APC9212 MasterSwitch.
 
 ## Installation
 
