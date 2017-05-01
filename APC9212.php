@@ -30,10 +30,10 @@ class APC9212 {
     }
 
     function getOutletName($outlet) {
-        return trim(strtr(snmpget($this->host, $this->community, $this->string2.$outlet),"\""," "));
+        return trim(strtr(explode(":", snmpget($this->host, $this->community, $this->string2.$outlet))[1],"\""," "));
     }
 
-    function getOutletStatus($outlet) {
+    public function getOutletStatus($outlet) {
         $state = explode(":", snmpget($this->host, $this->community, $this->string1.$outlet))[1];
         switch ($state) {
             case 2:
@@ -54,6 +54,20 @@ class APC9212 {
                 return $this->set($outlet, 2);
             }
         return 0;
+    }
+
+    public function allOff() {
+        for($i = 1; $i <= 8; $i++) {
+            $this->set($i, 2);
+        }
+        return 1;
+    }
+
+    public function allOn() {
+        for($i = 1; $i <= 8; $i++) {
+            $this->set($i, 1);
+        }
+        return 1;
     }
 
     public function cycleOutlet($outlet) {
