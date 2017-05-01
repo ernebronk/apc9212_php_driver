@@ -36,9 +36,9 @@ class APC9212 {
     function getOutletStatus($outlet) {
         $state = explode(":", snmpget($this->host, $this->community, $this->string1.$outlet))[1];
         switch ($state) {
-            case 1:
-                return "Off";
             case 2:
+                return "Off";
+            case 1:
                 return "On";
             case 3:
                 return "Power cycling";
