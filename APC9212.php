@@ -34,19 +34,30 @@ class APC9212 {
     }
 
     function getOutletStatus($outlet) {
-        return snmpget($this->host, $this->community, $this->string1.$outlet);
+        $state = explode(":", snmpget($this->host, $this->community, $this->string1.$outlet))[1];
+        switch ($state) {
+            case 1:
+                return "Off";
+            case 2:
+                return "On";
+            case 3:
+                return "Power cycling";
+        }
+        return "Error";
     }
 
     public function setOutlet($outlet, $state) {
         switch($state) {
             case "on":
-                $this->set($outlet, 1);
-                return 1;
+                return $this->set($outlet, 1);
             case "off":
-                $this->set($outlet, 2);
-                return 1;
+                return $this->set($outlet, 2);
             }
         return 0;
+    }
+
+    public function cycleOutlet($outlet) {
+        return $this->set($outlet,3);
     }
 
     private function set($outlet, $status) {
